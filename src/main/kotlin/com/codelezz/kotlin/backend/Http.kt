@@ -60,7 +60,6 @@ class HttpRequest {
 				)
 			}
 
-
 			BufferedReader(InputStreamReader(inputStream)).use {
 				var inputLine = it.readLine()
 				while (inputLine != null) {
