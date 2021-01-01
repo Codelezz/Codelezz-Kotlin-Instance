@@ -1,13 +1,14 @@
 package com.codelezz.kotlin.backend
 
 import com.codelezz.kotlin.CodelezzBase.gson
+import com.codelezz.kotlin.nodes.Nodes
 import com.codelezz.kotlin.utils.genericTypeInline
 import com.codelezz.kotlin.utils.json
 import java.io.ByteArrayInputStream
 import java.util.*
 import java.util.zip.GZIPInputStream
 
-object Backend {
+object Modules {
 
 	/**
 	 * Starts the connection between the backend and this instance.
@@ -17,16 +18,18 @@ object Backend {
 	 * and it will need to be linked with the backend.
 	 * Guidance will be given to the players that can connect this instance.
 	 */
-	fun init() {
+	internal fun init() {
 		val modules = fetchModules()
+		println("Loaded ${modules.size} modules.")
 		loadModules(modules)
+		println("Parsed ${Nodes.nodesSize} nodes, and ${Nodes.linksSize} links.")
 	}
 
 	/**
 	 * This will reinitialize the backend modules.
 	 * Though this will not update the installed bundles.
 	 */
-	fun reInit() {
+	internal fun reInit() {
 		val modules = fetchModules()
 		loadModules(modules)
 	}
@@ -48,7 +51,7 @@ object Backend {
 
 	private fun loadModules(modules: List<Module>) {
 		modules.forEach {
-			print("Nodes: ${it.nodes.decompress()}, Links: ${it.links.decompress()}")
+			Nodes.parse(it.nodes.decompress(), it.links.decompress())
 		}
 	}
 

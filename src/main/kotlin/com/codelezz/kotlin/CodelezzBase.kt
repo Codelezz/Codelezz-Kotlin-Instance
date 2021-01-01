@@ -1,6 +1,8 @@
 package com.codelezz.kotlin
 
-import com.codelezz.kotlin.backend.Backend
+import com.codelezz.kotlin.backend.Modules
+import com.codelezz.kotlin.bundles.Bundles
+import com.codelezz.kotlin.nodes.Nodes
 import com.codelezz.kotlin.utils.Exclude
 import com.codelezz.kotlin.utils.getExclusionStrategy
 import com.google.gson.Gson
@@ -24,9 +26,14 @@ object CodelezzBase {
 			.serializeNulls()
 			.create()
 
-		Backend.init()
+		Modules.init()
+		Bundles.loadBundles()
+		Nodes.initializeNodes()
 	}
+
 	fun reInitialize() {
-		Backend.init()
+		Nodes.clearNodes()
+		Modules.reInit()
+		Nodes.initializeNodes()
 	}
 }

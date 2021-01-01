@@ -2,7 +2,8 @@ plugins {
     java
     idea
     maven
-    kotlin("jvm") version "1.4.20"
+    `maven-publish`
+    kotlin("jvm") version "1.4.21"
 }
 
 group = "com.codelezz.instances"
@@ -13,6 +14,24 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 idea {
     module {
         isDownloadJavadoc = true
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/codelezz/codelezz-kotlin-instance")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("gpr") {
+            from(components["java"])
+        }
     }
 }
 
