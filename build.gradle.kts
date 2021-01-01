@@ -33,6 +33,10 @@ publishing {
             artifactId = "codelezz-kotlin-instance"
             from(components["java"])
         }
+        create<MavenPublication>("mavenJava") {
+            artifactId = "codelezz-kotlin-instance"
+            from(components["java"])
+        }
     }
 }
 
